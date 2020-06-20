@@ -23,12 +23,11 @@ public class FooBarConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .httpBasic()
-                .and()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasAnyRole("admin_role")
-                .antMatchers("/student/**").hasAnyRole("admin_role", "student_role")
-                .antMatchers("/**").permitAll()
+                .antMatchers("/admin").hasAuthority("admin_role")
+                .antMatchers("/student").hasAnyAuthority("admin_role", "student_role")
+                .antMatchers("/**")
+                .permitAll()
                 .and()
                 .formLogin();
     }
